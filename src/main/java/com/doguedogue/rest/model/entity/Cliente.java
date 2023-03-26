@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -43,4 +44,9 @@ public class Cliente implements Serializable{
 	@Column(name="created_at")
 	@Temporal(TemporalType.DATE)
 	private Date createdAt;
+	
+	@PrePersist
+	private void prepersist() {
+		createdAt = new Date();
+	}
 }
