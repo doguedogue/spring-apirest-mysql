@@ -32,13 +32,13 @@ public class Cliente implements Serializable{
 	@Column(name = "id")
 	private Long id;
 	
-	@Column(name = "nombre")
+	@Column(name = "nombre", nullable=false)
 	private String nombre;
 	
 	@Column(name = "apellido")
 	private String apellido;
 	
-	@Column(name = "email")
+	@Column(name = "email", unique=true)
 	private String email;
 
 	@Column(name="created_at")

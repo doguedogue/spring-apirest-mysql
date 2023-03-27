@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -58,8 +59,23 @@ public class ClienteRestController {
 	
 	@PostMapping ("/clientes")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente create(@RequestBody Cliente cliente) {
-		return clienteService.save(cliente);
+	public ResponseEntity<Map<String, Object>> create(@RequestBody Cliente cliente) {
+		
+		Cliente clienteNew = null;
+		Map<String, Object> response = new HashMap<>();
+		
+		try {
+			clienteNew = clienteService.save(cliente);
+		}catch(DataAccessException e) {
+			response.put("mensaje", "Error al insertar en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		response.put("mensaje", "El cliente se ha creado con éxito!");
+		response.put("Client", clienteNew);
+		
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
 	
 	@PutMapping ("/clientes/{id}")
