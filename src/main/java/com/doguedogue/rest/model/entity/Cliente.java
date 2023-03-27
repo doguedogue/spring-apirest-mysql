@@ -35,17 +35,17 @@ public class Cliente implements Serializable{
 	@Column(name = "id")
 	private Long id;
 
-	@NotEmpty
-	@Size(min=4, max=12)
+	@NotEmpty (message="no puede estar vacio")
+	@Size(min=4, max=12, message="el campo debe estar entre 4 y 12 carácteres")
 	@Column(name = "nombre", nullable=false)
 	private String nombre;
 	
-	@NotEmpty
+	@NotEmpty (message="no puede estar vacio")
 	@Column(name = "apellido")
 	private String apellido;
 	
-	@NotEmpty
-	@Email
+	@NotEmpty (message="no puede estar vacio")
+	@Email (message="no es una dirección de correo bien formada")
 	@Column(name = "email", unique=true)
 	private String email;
 
