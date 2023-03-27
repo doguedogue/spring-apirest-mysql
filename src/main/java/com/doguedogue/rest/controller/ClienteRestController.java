@@ -73,7 +73,7 @@ public class ClienteRestController {
 		}
 		
 		response.put("mensaje", "El cliente se ha creado con éxito!");
-		response.put("Client", clienteNew);
+		response.put("cliente", clienteNew);
 		
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
@@ -111,7 +111,7 @@ public class ClienteRestController {
 		}
 		
 		response.put("mensaje", "El cliente se ha actualizado con éxito!");
-		response.put("Client", clienteUpd);
+		response.put("cliente", clienteUpd);
 		
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
